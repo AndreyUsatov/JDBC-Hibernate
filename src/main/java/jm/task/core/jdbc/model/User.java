@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Table
 public class User {
     @Id
@@ -21,7 +22,11 @@ public class User {
     public User() {
 
     }
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", lastName= " + lastName + ", age=" + age + "]";
 
+    }
     public User(String name, String lastName, Byte age) {
         this.name = name;
         this.lastName = lastName;
