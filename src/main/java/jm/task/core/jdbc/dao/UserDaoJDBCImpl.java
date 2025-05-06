@@ -18,42 +18,28 @@ public class UserDaoJDBCImpl implements UserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDaoJDBCImpl.class);
 
-
-    public class UserQueries {
-        public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS users" +
-                "(id SERIAL PRIMARY KEY," +
-                " name VARCHAR(50), " +
-                "lastname VARCHAR(50), " +
-                "age SMALLINT)";
-
-        public static final String DROP_TABLE = "DROP TABLE IF EXISTS users";
-
-        public static final String INSERT_USER = "INSERT INTO users (name, lastname, age) VALUES (?, ?, ?)";
-
-        public static final String DELETE_USER_BY_ID = "DELETE FROM users WHERE id = ?";
-
-        public static final String SELECT_ALL_USERS = "SELECT * FROM users";
-
-        public static final String CLEAN_TABLE = "DELETE FROM users";
-    }
-
-    public void createUsersTable() throws SQLException {
+    public void createUsersTable() {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.CREATE_TABLE);
-            logger.info("Таблица создана");
+                    } catch (SQLException e) {
+            logger.error("Ошибка при создании таблицы: {}", e.getMessage());
+            throw new RuntimeException("Не удалось создать таблицу", e);
         }
     }
 
-    public void dropUsersTable() throws SQLException {
+    public void dropUsersTable() {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.DROP_TABLE);
             logger.info("Таблица удалена");
+        } catch (SQLException e) {
+            logger.error("Ошибка при удалении таблицы: {}", e.getMessage());
+            throw new RuntimeException("Не удалось удалить таблицу", e);
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
+    public void saveUser(String name, String lastName, byte age) {
         try (Connection connection = Util.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UserQueries.INSERT_USER)) {
             preparedStatement.setString(1, name);
@@ -61,19 +47,26 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
             logger.info("User с именем – " + name + " добавлен в базу данных");
+        } catch (SQLException e) {
+            logger.error("Ошибка добалнеия пользователа: {}", e.getMessage());
+            throw new RuntimeException("Не удалось добавить пользователя:", e);
         }
     }
 
-    public void removeUserById(long id) throws SQLException {
+
+    public void removeUserById(long id) {
         try (Connection connection = Util.getConnection();
              PreparedStatement statement = connection.prepareStatement(UserQueries.DELETE_USER_BY_ID)) {
             statement.setLong(1, id);
             statement.executeUpdate();
             logger.info("User удален");
+        } catch (SQLException e) {
+            logger.error("Ошибка при удалении пользователя с ID {}: {}", id, e.getMessage());
+            throw new RuntimeException("Не удалось удалить пользователя", e);
         }
     }
 
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() {
         List<User> allUsers = new ArrayList<>();
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
@@ -86,15 +79,21 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(resultSet.getByte("age"));
                 allUsers.add(user);
             }
+        } catch (SQLException e) {
+            logger.error("Ошибка при получении всех пользователей: {}", e.getMessage());
+            throw new RuntimeException("Не удалось получить список пользователей", e);
         }
         return allUsers;
     }
 
-    public void cleanUsersTable() throws SQLException {
+    public void cleanUsersTable() {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.CLEAN_TABLE);
             logger.info("Таблица очищена");
+        } catch (SQLException e) {
+            logger.error("Ошибка при очистке таблицы пользователей: {}", e.getMessage());
+            throw new RuntimeException("Не удалось очистить таблицу пользователей", e);
         }
     }
 }

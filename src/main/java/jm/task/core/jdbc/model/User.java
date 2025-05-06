@@ -2,9 +2,13 @@ package jm.task.core.jdbc.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 import javax.persistence.*;
 
+
+@ToString
 @Data
 @NoArgsConstructor
 @Entity
@@ -23,16 +27,5 @@ public class User {
     @Column
     private Byte age;
 
-
-    @Override
-    public String toString() {
-        return "User [id=" + id + ", name=" + name + ", lastName= " + lastName + ", age=" + age + "]";
-
     }
 
-    public User(String name, String lastName, Byte age) {
-        this.name = name;
-        this.lastName = lastName;
-        this.age = age;
-    }
-}

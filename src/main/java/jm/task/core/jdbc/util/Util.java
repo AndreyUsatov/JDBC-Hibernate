@@ -32,6 +32,7 @@ public class Util {
             password = properties.getProperty("db.password");
         } catch (IOException ex) {
             ex.printStackTrace();
+            throw new RuntimeException("Ошибка при загрузке db.properties: " + ex.getMessage(), ex);
         }
     }
 
@@ -42,6 +43,7 @@ public class Util {
             connection = DriverManager.getConnection(host, login, password);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+            throw new RuntimeException("Ошибка при получении соединения с базой данных: " + e.getMessage(), e);
         }
         return connection;
     }

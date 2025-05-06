@@ -21,7 +21,7 @@ public class Main {
         log.info("");
         userService.getAllUsers();
         log.info("");
-        userService.removeUserById(1);
+        userService.removeUserById(1); // вызов удаления
         log.info("");
         userService.cleanUsersTable();
         log.info("");
