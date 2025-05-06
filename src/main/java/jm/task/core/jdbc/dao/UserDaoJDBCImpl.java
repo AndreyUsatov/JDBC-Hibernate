@@ -2,6 +2,7 @@ package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +13,11 @@ import java.util.List;
 
 
 @Slf4j
+@NoArgsConstructor
 public class UserDaoJDBCImpl implements UserDao {
 
     private static final Logger logger = LoggerFactory.getLogger(UserDaoJDBCImpl.class);
 
-    public UserDaoJDBCImpl() {
-
-    }
 
     public class UserQueries {
         public static final String CREATE_TABLE = "CREATE TABLE IF NOT EXISTS users" +

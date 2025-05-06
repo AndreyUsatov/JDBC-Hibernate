@@ -22,7 +22,7 @@ public class Util {
         try (InputStream input = Util.class.getClassLoader().getResourceAsStream("db.properties")) {
             Properties properties = new Properties();
             if (input == null) {
-                System.out.println("Извините, не удалось найти db.properties");
+                log.info("Извините, не удалось найти db.properties");
 
             }
             properties.load(input);
