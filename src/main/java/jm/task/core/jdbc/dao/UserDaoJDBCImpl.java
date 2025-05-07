@@ -22,8 +22,8 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.CREATE_TABLE);
+            logger.info("Таблица создана");
                     } catch (SQLException e) {
-            logger.error("Ошибка при создании таблицы: {}", e.getMessage());
             throw new RuntimeException("Не удалось создать таблицу", e);
         }
     }
@@ -34,7 +34,6 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate(UserQueries.DROP_TABLE);
             logger.info("Таблица удалена");
         } catch (SQLException e) {
-            logger.error("Ошибка при удалении таблицы: {}", e.getMessage());
             throw new RuntimeException("Не удалось удалить таблицу", e);
         }
     }
@@ -48,7 +47,6 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.executeUpdate();
             logger.info("User с именем – " + name + " добавлен в базу данных");
         } catch (SQLException e) {
-            logger.error("Ошибка добалнеия пользователа: {}", e.getMessage());
             throw new RuntimeException("Не удалось добавить пользователя:", e);
         }
     }
@@ -61,7 +59,6 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate();
             logger.info("User удален");
         } catch (SQLException e) {
-            logger.error("Ошибка при удалении пользователя с ID {}: {}", id, e.getMessage());
             throw new RuntimeException("Не удалось удалить пользователя", e);
         }
     }
@@ -92,7 +89,6 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.executeUpdate(UserQueries.CLEAN_TABLE);
             logger.info("Таблица очищена");
         } catch (SQLException e) {
-            logger.error("Ошибка при очистке таблицы пользователей: {}", e.getMessage());
             throw new RuntimeException("Не удалось очистить таблицу пользователей", e);
         }
     }

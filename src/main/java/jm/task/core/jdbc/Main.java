@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 @Slf4j
 public class Main {
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args)  {
         // реализуйте алгоритм здесь
         UserService userService = new UserServiceImpl();
         userService.createUsersTable();

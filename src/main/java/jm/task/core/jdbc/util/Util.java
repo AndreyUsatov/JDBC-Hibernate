@@ -11,10 +11,10 @@ import java.util.Properties;
 
 @Slf4j
 public class Util {
-    private static String driver;
-    private static String host;
-    private static String login;
-    private static String password;
+    private static final String driver;
+    private static final String host;
+    private static final String login;
+    private static final String password;
 
 
 
@@ -30,9 +30,9 @@ public class Util {
             host = properties.getProperty("db.host");
             login = properties.getProperty("db.login");
             password = properties.getProperty("db.password");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new RuntimeException("Ошибка при загрузке db.properties: " + ex.getMessage(), ex);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Ошибка при загрузке db.properties: " + e.getMessage(), e);
         }
     }
 
