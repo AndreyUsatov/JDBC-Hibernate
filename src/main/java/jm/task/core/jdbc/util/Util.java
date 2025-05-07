@@ -42,6 +42,7 @@ public class Util {
                 throw new RuntimeException("Ошибка при загрузке файла свойств: " + e.getMessage(), e);
             } catch (HibernateException e) {
                 e.printStackTrace();
+                throw new RuntimeException("Ошибка при создании SessionFactory: " + e.getMessage(), e);
             }
         }
         return sessionFactory;

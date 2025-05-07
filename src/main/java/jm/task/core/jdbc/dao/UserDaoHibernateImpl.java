@@ -65,11 +65,9 @@ public class UserDaoHibernateImpl implements UserDao {
                 log.info("User  с именем – " + name + " добавлен в базу данных");
             } catch (HibernateException e) {
                 transaction.rollback();
-                log.error("Ошибка при сохранении пользователя: " + e.getMessage(), e);
-                throw new RuntimeException("Ошибка при сохранении пользователя: " + e.getMessage(), e);
+                                throw new RuntimeException("Ошибка при сохранении пользователя: " + e.getMessage(), e);
             } catch (Exception e) {
-                log.error("Ошибка при работе с сессией: " + e.getMessage(), e);
-                throw new RuntimeException("Ошибка при работе с сессией: " + e.getMessage(), e);
+                               throw new RuntimeException("Ошибка при работе с сессией: " + e.getMessage(), e);
             }
         }
     }
@@ -98,8 +96,7 @@ public class UserDaoHibernateImpl implements UserDao {
                 throw new RuntimeException("Ошибка при удалении пользователя: " + e.getMessage(), e);
             }
         } catch (Exception e) {
-            log.error("Ошибка при работе с сессией: " + e.getMessage(), e);
-            throw new RuntimeException("Ошибка при работе с сессией: " + e.getMessage(), e);
+                        throw new RuntimeException("Ошибка при работе с сессией: " + e.getMessage(), e);
         }
     }
 
@@ -116,8 +113,7 @@ public class UserDaoHibernateImpl implements UserDao {
             List<User> userList = session.createQuery(criteriaQuery).getResultList();
             return userList;
         } catch (HibernateException e) {
-            log.error("Ошибка при получении списка пользователей: " + e.getMessage(), e);
-            throw new RuntimeException("Ошибка при получении списка пользователей: " + e.getMessage(), e);
+                       throw new RuntimeException("Ошибка при получении списка пользователей: " + e.getMessage(), e);
         }
     }
 
