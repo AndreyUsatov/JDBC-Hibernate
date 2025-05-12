@@ -16,8 +16,6 @@ public class Util {
     private static final String login;
     private static final String password;
 
-
-
     static {
         try (InputStream input = Util.class.getClassLoader().getResourceAsStream("db.properties")) {
             Properties properties = new Properties();

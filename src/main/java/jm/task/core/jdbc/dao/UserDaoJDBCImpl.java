@@ -4,26 +4,26 @@ import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
+
+
 @Slf4j
 @NoArgsConstructor
 public class UserDaoJDBCImpl implements UserDao {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDaoJDBCImpl.class);
+
 
     public void createUsersTable() {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.CREATE_TABLE);
-            logger.info("Таблица создана");
-                    } catch (SQLException e) {
+            log.info("Таблица создана");
+        } catch (SQLException e) {
             throw new RuntimeException("Не удалось создать таблицу", e);
         }
     }
@@ -32,7 +32,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.DROP_TABLE);
-            logger.info("Таблица удалена");
+            log.info("Таблица удалена");
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось удалить таблицу", e);
         }
@@ -45,7 +45,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
-            logger.info("User с именем – " + name + " добавлен в базу данных");
+            log.info("User с именем – " + name + " добавлен в базу данных");
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось добавить пользователя:", e);
         }
@@ -57,7 +57,7 @@ public class UserDaoJDBCImpl implements UserDao {
              PreparedStatement statement = connection.prepareStatement(UserQueries.DELETE_USER_BY_ID)) {
             statement.setLong(1, id);
             statement.executeUpdate();
-            logger.info("User удален");
+            log.info("User удален");
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось удалить пользователя", e);
         }
@@ -77,7 +77,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 allUsers.add(user);
             }
         } catch (SQLException e) {
-            logger.error("Ошибка при получении всех пользователей: {}", e.getMessage());
+            log.error("Ошибка при получении всех пользователей: {}", e.getMessage());
             throw new RuntimeException("Не удалось получить список пользователей", e);
         }
         return allUsers;
@@ -87,7 +87,7 @@ public class UserDaoJDBCImpl implements UserDao {
         try (Connection connection = Util.getConnection();
              Statement statement = connection.createStatement()) {
             statement.executeUpdate(UserQueries.CLEAN_TABLE);
-            logger.info("Таблица очищена");
+            log.info("Таблица очищена");
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось очистить таблицу пользователей", e);
         }

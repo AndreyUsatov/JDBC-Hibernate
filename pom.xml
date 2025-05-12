@@ -21,8 +21,7 @@
     </build>
 
     <dependencies>
-        <!--         Ваши зависимости-->
-        <!-- https://mvnrepository.com/artifact/junit/junit -->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -47,8 +46,6 @@
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.2.Final</version>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>

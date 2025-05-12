@@ -27,5 +27,6 @@ public class Main {
         log.info("");
         userService.dropUsersTable();
     }
+
 }
 
